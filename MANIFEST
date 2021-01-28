@@ -1,0 +1,8 @@
+bin/hostsctl
+lib/Linux/Hosts/App.pm
+lib/Linux/Hosts/Entry.pm
+lib/Linux/Hosts/Exception.pm
+lib/Linux/Hosts.pm
+Makefile.PL
+MANIFEST
+README.md
