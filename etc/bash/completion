@@ -1,0 +1,26 @@
+_hostsctl() {
+    local cur prev words cword
+    _get_comp_words_by_ref cur prev words cword
+
+    local actions='list add remove add-alias remove-alias'
+    local options='--help --man --version --no-pager --no-legend'
+
+    case "$prev" in
+        --help|--man|--version)
+            return
+            ;;
+    esac
+
+    if [[ "$cur" == -* ]]; then
+        COMPREPLY=($(compgen -W "${options}" -- "$cur"))
+        return
+    fi
+
+    COMPREPLY=($(compgen -W "${actions}" -- "$cur"))
+
+    return
+}
+
+complete -F _hostsctl hostsctl
+
+# vim: ft=sh
