@@ -2,7 +2,7 @@ _hostsctl() {
     local cur prev words cword
     _get_comp_words_by_ref cur prev words cword
 
-    local actions='list add remove add-alias remove-alias'
+    local actions='list add remove set-hostname add-alias remove-alias'
     local options='--help --man --version --no-pager --no-legend'
 
     case "$prev" in
