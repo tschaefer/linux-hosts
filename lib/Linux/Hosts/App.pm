@@ -314,7 +314,7 @@ hostsctl add ADRESS HOSTNAME [ALIASES] | remove ADDRESS
 
 hostsctl set-hostname ADDRESS HOSTNAME
 
-hostsctl add-alias ALIASES | remove-alias ALIASES
+hostsctl add-alias ADDRESS ALIASES | remove-alias ADDRESS ALIASES
 
 =head1 OPTIONS
 
