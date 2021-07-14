@@ -310,7 +310,7 @@ hostsctl --help|-h | --man|-m | --version|-v
 
 hostsctl [--no-legend] [--no-pager] list
 
-hostsctl add ADRESS HOSTNAME [ALIASES] | remove ADDRESS
+hostsctl add ADDRESS HOSTNAME [ALIASES] | remove ADDRESS
 
 hostsctl set-hostname ADDRESS HOSTNAME
 
