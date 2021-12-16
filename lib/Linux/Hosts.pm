@@ -110,7 +110,7 @@ sub _spew_formatted {
 
     my $table = Text::Table->new();
     for my $entry (@entries) {
-        my $aliases = join ' ', @{ $entry->aliases };
+        my $aliases = join ' ', sort @{ $entry->aliases };
 
         $table->load( [ $entry->address, $entry->hostname, $aliases || '' ] );
     }

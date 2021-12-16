@@ -1,8 +1,12 @@
 bin/hostsctl
 lib/Linux/Hosts/App.pm
 lib/Linux/Hosts/Entry.pm
+lib/Linux/Hosts/Entry.pod
 lib/Linux/Hosts/Exception.pm
+lib/Linux/Hosts/Exception.pod
 lib/Linux/Hosts.pm
+lib/Linux/Hosts.pod
+lib/Linux/Usage.pod
 Makefile.PL
 MANIFEST
 README.md

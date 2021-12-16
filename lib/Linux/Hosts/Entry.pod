@@ -1,0 +1,70 @@
+=head1 Linux::Hosts::Entry
+
+A system hosts file entry.
+
+A valid entry contains a IPv4 / IPv6, an hostname and an optional list
+of hostname aliases. The address and hostnames are validated on
+creation or modification with following data validation packages.
+
+=over
+
+=item * Data::Validate::IP
+(https://metacpan.org/pod/Data::Validate::IP)
+
+=item * Data::Validate::Domain
+(https://metacpan.org/pod/Data::Validate::Domain)
+
+=back
+
+On failure an exception is thrown.
+
+=head1 Attributes
+
+=head2 C<has 'address'; #30>
+
+IPv4 / IPv6 address.
+
+=head2 C<has 'hostname'; #37>
+
+Canonical Hostname.
+
+=head2 C<has 'aliases'; #52>
+
+List of aliases (hostnames).
+
+Attribute is not writeable on build. For manipulation see following
+methods.
+
+=over
+
+=item * add_alias
+
+=item * remove_alias
+
+=back
+
+=head1 Methods
+
+=head2 C<sub add_alias($self, $aliases); #63>
+
+Add single or list of hostname aliases.
+
+Duplicates and aliases equal to hostname are removed.
+
+=head2 C<sub remove_alias($self, $aliases); #81>
+
+Remove single or list of hostname aliases.
+
+Not existing aliases are ignored.
+
+=head2 C<sub set_hostname($self, $hostname); #106>
+
+Set hostname.
+
+=cut
+
+#Pod::HTML2Pod conversion notes:
+# 1316 bytes of input
+#Thu Dec 16 13:02:47 2021 tschaefer
+# No a_name switch not specified, so will not try to render <a name='...'>
+# Will try to render <a href='...'>

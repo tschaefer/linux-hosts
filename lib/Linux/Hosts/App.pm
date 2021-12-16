@@ -131,10 +131,9 @@ sub version {
 }
 
 sub print_output {
-    my ( $self, $output ) = @_;
+    my ( $self, $output, $num, $length ) = @_;
 
     my ( $width, $height ) = GetTerminalSize();
-    my $num = scalar split "\n", $output;
 
     my $pager = $ENV{'PAGER'};
     if ( !$pager || !File::Which::which($pager) ) {
@@ -146,7 +145,7 @@ sub print_output {
 
     if (   $self->options->{'no_pager'}
         || !$pager
-        || ( $height > $num ) )
+        || ( ( $height > $num ) && ( $width > $length ) ) )
     {
         print $output;
     }
@@ -167,7 +166,7 @@ sub do_list {
     my $table = Text::Table->new( "ADDRESS", "HOSTNAME", "ALIAS" );
 
     for my $entry (@entries) {
-        my $aliases = join ' ', @{ $entry->aliases };
+        my $aliases = join "\n", @{ $entry->aliases };
 
         $table->load( [ $entry->address, $entry->hostname, $aliases || '' ] );
     }
@@ -185,7 +184,7 @@ sub do_list {
     $output .= "\n" . $num . " entries listed.\n"
       if ( !$self->options->{'no_legend'} );
 
-    $self->print_output($output);
+    $self->print_output($output, $num, $length);
 
     return 0;
 }
