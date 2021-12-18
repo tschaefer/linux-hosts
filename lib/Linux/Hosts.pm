@@ -28,6 +28,8 @@ use Readonly;
 use Text::Table;
 use Try::Tiny;
 
+use Data::Validate::IP;
+
 use Linux::Hosts::Entry;
 use Linux::Hosts::Exception;
 
@@ -122,17 +124,30 @@ sub _spew_formatted {
 
     my $content = $header . $body;
 
-    try { path($PATH)->spew($content); } catch { $self->_throw( $_->{'err'} ); };
+    try { path($PATH)->spew($content); }
+    catch { $self->_throw( $_->{'err'} ); };
 
     return;
 }
 
-### Return list of entries sorted by address.
+### Return list of entries sorted by address and optional filtered by inet
+### family, ipv4 or ipv6.
 sub list {
-    my $self = shift;
+    my ( $self, $family ) = @_;
 
-    my @entries =
-      sort { $a->address cmp $b->address } values %{ $self->entries };
+    $family //= '';
+    my %ip_filter = (
+        ipv4 => sub {
+            grep { is_ipv4( $_->address ) } @_;
+        },
+        ipv6 => sub {
+            grep { is_ipv6( $_->address ) } @_;
+        },
+    );
+    my $filter = $ip_filter{$family} // sub { return @_; };
+
+    my @entries = $filter->( sort { $a->address cmp $b->address }
+          values %{ $self->entries } );
 
     return @entries;
 }

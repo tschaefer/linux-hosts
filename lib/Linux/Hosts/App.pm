@@ -66,8 +66,6 @@ sub _build_options {
         "help|h"    => \$options{'help'},
         "man|m"     => \$options{'man'},
         "version|v" => \$options{'version'},
-        "no-legend" => \$options{'no_legend'},
-        "no-pager"  => \$options{'no_pager'},
     ) or exit $self->usage();
 
     foreach my $key ( keys %options ) {
@@ -161,7 +159,14 @@ sub print_output {
 sub do_list {
     my $self = shift;
 
-    my @entries = $self->hosts->list;
+    my %list_options;
+    GetOptions(
+        "filter=s"  => \$list_options{filter},
+        "no-legend" => \$list_options{'no_legend'},
+        "no-pager"  => \$list_options{'no_pager'},
+    ) or exit $self->usage();
+
+    my @entries = $self->hosts->list($list_options{filter});
 
     my $table = Text::Table->new( "ADDRESS", "HOSTNAME", "ALIAS" );
 
@@ -177,12 +182,12 @@ sub do_list {
     my $output;
 
     $output .= $table->title . '—' x $length . "\n"
-      if ( !$self->options->{'no_legend'} );
+      if ( !$list_options{'no_legend'} );
 
     $output .= $table->body;
 
     $output .= "\n" . $num . " entries listed.\n"
-      if ( !$self->options->{'no_legend'} );
+      if ( !$list_options{'no_legend'} );
 
     $self->print_output($output, $num, $length);
 
@@ -307,7 +312,7 @@ hostsctl - Query and control the system hosts file.
 
 hostsctl --help|-h | --man|-m | --version|-v
 
-hostsctl [--no-legend] [--no-pager] list
+hostsctl [--no-legend] [--no-pager] list [--filter ipv4 | ipv6]
 
 hostsctl add ADDRESS HOSTNAME [ALIASES] | remove ADDRESS
 
@@ -338,6 +343,10 @@ Print version string.
 =head2 list
 
 =over 8
+
+=item --filter ipv4 | ipv6
+
+Limit list by internet address family.
 
 =item --no-legend
 
