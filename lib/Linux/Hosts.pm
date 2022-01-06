@@ -53,9 +53,7 @@ Readonly::Scalar my $PATH => '/etc/hosts';
 sub _throw {
     my ( $self, $message ) = @_;
 
-    Linux::Hosts::Exception->new( message => $message )->throw();
-
-    return;
+    return Linux::Hosts::Exception->new( message => $message )->throw();
 }
 
 ### Read hosts file and set *entries* attribute.
