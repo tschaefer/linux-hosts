@@ -1,5 +1,8 @@
 # hostsctl
 
+> :warning: **This project is not active anymore, therefore the repository is archived.**
+> Please use the ruby implementation https://github.com/tschaefer/ruby-hosts/ :warning:
+
 **hostsctl** - Query and control the system hosts file.
 
 ## Introduction
